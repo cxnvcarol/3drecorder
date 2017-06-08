@@ -5,14 +5,17 @@
     <ClCompile Include="d3dRecorder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_d3dRecorder.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_d3dRecorder.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_d3dRecorder.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\qrc_d3dRecorder.cpp">
-      <Filter>Generated Files</Filter>
+    <ClCompile Include="WorkingSession.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -66,6 +69,9 @@
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_d3dRecorder.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WorkingSession.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
