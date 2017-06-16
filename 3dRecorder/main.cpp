@@ -6,15 +6,26 @@
 
 void testsEDSDK()
 {
-	EdsInitializeSDK();
-	EdsCameraListRef *list;
-	
-	EdsGetCameraList(list);
-	qDebug("QUIERO");
+	EdsError err= EdsInitializeSDK();
+	EdsCameraRef camera = NULL;
+	EdsCameraListRef list=NULL;
 
-	EdsUInt32 *count=0;
-	EdsError er=EdsGetChildCount(*list, count);
+	if (err == EDS_ERR_OK)
+	{
+		EdsGetCameraList(&list);
+		
+	}
+
+	EdsUInt32 count=0;
+	EdsError er=EdsGetChildCount(list, &count);
 	qDebug("bailar contigo");
+
+	err = EdsGetChildAtIndex(list, 0, &camera);
+
+	EdsGetChildCount(camera, &count);
+
+	EdsDeviceInfo infoDev;
+	EdsGetDeviceInfo(camera, &infoDev);
 
 	EdsTerminateSDK();
 }
