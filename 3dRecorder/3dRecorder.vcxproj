@@ -71,7 +71,7 @@
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(VIMBA_HOME)\VimbaCPP\Lib\Win$(PlatformArchitecture);$(VIMBA_HOME)\ThirdParty\TinyXML\Lib\Win$(PlatformArchitecture);$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>VimbaCPP.lib;qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>VimbaCPP.lib;EDSDK.lib;qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(VIMBA_HOME)\VimbaCPP\Bin\Win$(PlatformArchitecture)\*.*" "$(TargetDir)" /Y</Command>
@@ -91,7 +91,7 @@
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(VIMBA_HOME)\VimbaCPP\Lib\Win$(PlatformArchitecture);$(VIMBA_HOME)\ThirdParty\TinyXML\Lib\Win$(PlatformArchitecture);$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>VimbaCPP.lib;qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>VimbaCPP.lib;EDSDK.lib;qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalOptions> /SUBSYSTEM:WINDOWS</AdditionalOptions>
     </Link>
@@ -112,7 +112,7 @@
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(VIMBA_HOME)\VimbaCPP\Lib\Win$(PlatformArchitecture);$(VIMBA_HOME)\ThirdParty\TinyXML\Lib\Win$(PlatformArchitecture);$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalDependencies>VimbaCPP.lib;qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>VimbaCPP.lib;EDSDK.lib;qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(VIMBA_HOME)\VimbaCPP\Bin\Win$(PlatformArchitecture)\*.*" "$(TargetDir)" /Y</Command>
@@ -132,7 +132,7 @@
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(VIMBA_HOME)\VimbaCPP\Lib\Win$(PlatformArchitecture);$(VIMBA_HOME)\ThirdParty\TinyXML\Lib\Win$(PlatformArchitecture);$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalDependencies>VimbaCPP.lib;qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>VimbaCPP.lib;EDSDK.lib;qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalOptions> /SUBSYSTEM:WINDOWS</AdditionalOptions>
     </Link>
@@ -204,6 +204,9 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\External\EDSDK\EDSDK.h" />
+    <ClInclude Include="..\External\EDSDK\EDSDKErrors.h" />
+    <ClInclude Include="..\External\EDSDK\EDSDKTypes.h" />
     <ClInclude Include="GeneratedFiles\ui_d3dRecorder.h" />
     <ClInclude Include="WorkingSession.h" />
   </ItemGroup>

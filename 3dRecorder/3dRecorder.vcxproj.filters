@@ -73,5 +73,14 @@
     <ClInclude Include="WorkingSession.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\External\EDSDK\EDSDK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\External\EDSDK\EDSDKErrors.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\External\EDSDK\EDSDKTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
