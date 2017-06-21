@@ -1,9 +1,8 @@
 #include "d3dRecorder.h"
 #include <QtWidgets/QApplication>
 #include "WorkingSession.h"
-
+#include "EdsServices.h"
 #include "../External/EDSDK/EDSDK.h"
-
 void testsEDSDK()
 {
 	EdsError err= EdsInitializeSDK();
@@ -40,7 +39,8 @@ int main(int argc, char *argv[])
 	ws.dosomething();
 
 
-	testsEDSDK();
+	//testsEDSDK();
+
 
 
 	w.show();

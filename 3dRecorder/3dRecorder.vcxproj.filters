@@ -85,5 +85,8 @@
     <ClInclude Include="..\External\EDSDK\EDSDKTypes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EdsServices.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

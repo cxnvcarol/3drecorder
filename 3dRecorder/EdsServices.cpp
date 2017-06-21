@@ -1,4 +1,4 @@
-#include "../External/EDSDK/EDSDK.h"
+#include "EdsServices.h"
 
 void sampleRun()
 {
@@ -66,8 +66,9 @@ EdsError EDSCALLBACK handleObjectEvent(EdsObjectEvent event,
 	EdsBaseRef object,
 	EdsVoid * context)
 {
+	EdsError err = EDS_ERR_OK;
 	// do something
-	/*
+	
 	switch(event)
 	{
 	case kEdsObjectEvent_DirItemRequestTransfer:
@@ -76,24 +77,29 @@ EdsError EDSCALLBACK handleObjectEvent(EdsObjectEvent event,
 	default:
 	break;
 	}
-	*/
+	
 	// Object must be released
 	if (object)
 	{
 		EdsRelease(object);
 	}
+	return err;
 }
 EdsError EDSCALLBACK handleStateEvent(EdsPropertyEvent event,
 	EdsPropertyID property, EdsUInt32 parameter,
 	EdsVoid * context)
 {
+	EdsError err = EDS_ERR_OK;
 	// do something
+	return err;
 }
 EdsError EDSCALLBACK handlePropertyEvent(EdsPropertyEvent event,EdsPropertyID id,
 	EdsUInt32 parameter,
 	EdsVoid * context)
 {
+	EdsError err = EDS_ERR_OK;
 	// do something
+	return err;
 }
 
 EdsError getFirstCamera(EdsCameraRef *camera)
@@ -123,6 +129,7 @@ if (cameraList != NULL)
 	EdsRelease(cameraList);
 	cameraList = NULL;
 }
+return err;
 }
 
 EdsError getTv(EdsCameraRef camera, EdsUInt32 *Tv)
@@ -148,6 +155,7 @@ EdsError getTvDesc(EdsCameraRef camera, EdsPropertyDesc *TvDesc)
 EdsError setTv(EdsCameraRef camera, EdsUInt32 TvValue)
 {
 	EdsError err = EdsSetPropertyData(camera, kEdsPropID_Tv, 0, sizeof(TvValue), &TvValue);
+	return err;
 }
 
 EdsError downloadImage(EdsDirectoryItemRef directoryItem)
@@ -192,11 +200,12 @@ EdsError getVolume(EdsCameraRef camera, EdsVolumeRef * volume)
 	if (err == EDS_ERR_OK && count == 0)
 		err = EDS_ERR_DIR_NOT_FOUND;
 
-// Get initial volume
-if (err == EDS_ERR_OK)
-{
-	err = EdsGetChildAtIndex(camera, 0, volume);
-}
+	// Get initial volume
+	if (err == EDS_ERR_OK)
+	{
+		err = EdsGetChildAtIndex(camera, 0, volume);
+	}
+	return err;
 }
 
 EdsError getDCIMFolder(EdsVolumeRef volume, EdsDirectoryItemRef * directoryItem)
@@ -247,6 +256,7 @@ EdsError getDCIMFolder(EdsVolumeRef volume, EdsDirectoryItemRef * directoryItem)
 EdsError takePicture(EdsCameraRef camera)
 {
 	EdsError err;
+	
 	err = EdsSendCommand(camera, kEdsCameraCommand_PressShutterButton
 		, kEdsCameraCommand_ShutterButton_Completely);
 	EdsSendCommand(camera, kEdsCameraCommand_PressShutterButton
@@ -266,6 +276,7 @@ EdsError startLiveview(EdsCameraRef camera)
 		device |= kEdsEvfOutputDevice_PC;
 		err = EdsSetPropertyData(camera, kEdsPropID_Evf_OutputDevice, 0, sizeof(device), &device);
 	}
+	return err;
 	// A property change event notification is issued from the camera if property settings are made successfully.
 	// Start downloading of the live view image once the property change notification arrives.
 }
@@ -312,6 +323,7 @@ EdsError downloadEvfData(EdsCameraRef camera)
 		EdsRelease(evfImage);
 		evfImage = NULL;
 	}
+	return err;
 }
 EdsError endLiveview(EdsCameraRef camera)
 {
@@ -325,4 +337,5 @@ EdsError endLiveview(EdsCameraRef camera)
 		device &= ~kEdsEvfOutputDevice_PC;
 		err = EdsSetPropertyData(camera, kEdsPropID_Evf_OutputDevice, 0, sizeof(device), &device);
 	}
+	return err;
 }

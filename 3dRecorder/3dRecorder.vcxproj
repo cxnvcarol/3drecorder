@@ -208,6 +208,7 @@
     <ClInclude Include="..\External\EDSDK\EDSDK.h" />
     <ClInclude Include="..\External\EDSDK\EDSDKErrors.h" />
     <ClInclude Include="..\External\EDSDK\EDSDKTypes.h" />
+    <ClInclude Include="EdsServices.h" />
     <ClInclude Include="GeneratedFiles\ui_d3dRecorder.h" />
     <ClInclude Include="WorkingSession.h" />
   </ItemGroup>
