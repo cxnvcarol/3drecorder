@@ -128,7 +128,7 @@ if (cameraList != NULL)
 EdsError getTv(EdsCameraRef camera, EdsUInt32 *Tv)
 {
 	EdsError err = EDS_ERR_OK;
-	EdsUInt32 dataType;
+	EdsDataType dataType;
 	EdsUInt32 dataSize;
 	err = EdsGetPropertySize(camera, kEdsPropID_Tv, 0, &dataType, &dataSize);
 	if (err == EDS_ERR_OK)
@@ -138,7 +138,7 @@ EdsError getTv(EdsCameraRef camera, EdsUInt32 *Tv)
 	return err;
 }
 
-EdsError getTvDesc(EdsCameraRef camera, const EdsPropertyDesc *TvDesc)
+EdsError getTvDesc(EdsCameraRef camera, EdsPropertyDesc *TvDesc)
 {
 	EdsError err = EDS_ERR_OK;
 	err = EdsGetPropertyDesc(camera, kEdsPropID_Tv, TvDesc);
@@ -147,7 +147,7 @@ EdsError getTvDesc(EdsCameraRef camera, const EdsPropertyDesc *TvDesc)
 
 EdsError setTv(EdsCameraRef camera, EdsUInt32 TvValue)
 {
-	err = EdsSetPropertyData(camera, kEdsPropID_Tv, 0, sizeof(TvValue), &TvValue);
+	EdsError err = EdsSetPropertyData(camera, kEdsPropID_Tv, 0, sizeof(TvValue), &TvValue);
 }
 
 EdsError downloadImage(EdsDirectoryItemRef directoryItem)
@@ -160,13 +160,14 @@ err = EdsGetDirectoryItemInfo(directoryItem, &dirItemInfo);
 if (err == EDS_ERR_OK)
 {
 	err = EdsCreateFileStream(dirItemInfo.szFileName,
-		kEdsFile_CreateAlways,
+		kEdsFileCreateDisposition_CreateAlways,
+		//kEdsFile_CreateAlways,
 		kEdsAccess_ReadWrite, &stream);
 }
 // Download image
 if (err == EDS_ERR_OK)
 {
-	err = EdsDownload(directoryItem, dirItemInfo.Size, stream);
+	err = EdsDownload(directoryItem, dirItemInfo.size, stream);
 }
 // Issue notification that download is complete
 if (err == EDS_ERR_OK)
@@ -194,7 +195,7 @@ EdsError getVolume(EdsCameraRef camera, EdsVolumeRef * volume)
 // Get initial volume
 if (err == EDS_ERR_OK)
 {
-	err = EdsGetChildAtIndex(camera, 0, &volume);
+	err = EdsGetChildAtIndex(camera, 0, volume);
 }
 }
 
@@ -203,7 +204,7 @@ EdsError getDCIMFolder(EdsVolumeRef volume, EdsDirectoryItemRef * directoryItem)
 	EdsError err = EDS_ERR_OK;
 	EdsDirectoryItemRef dirItem = NULL;
 	EdsDirectoryItemInfo dirItemInfo;
-	EdsUInt64 count = 0;
+	EdsUInt32 count = 0;
 	// Get number of items under the volume
 	err = EdsGetChildCount(volume, &count);
 	if (err == EDS_ERR_OK && count == 0)
@@ -211,7 +212,7 @@ EdsError getDCIMFolder(EdsVolumeRef volume, EdsDirectoryItemRef * directoryItem)
 		err = EDS_ERR_DIR_NOT_FOUND;
 	}
 	// Get DCIM folder
-	if (int i = 0; i < count && err == EDS_ERR_OK; i++)
+	for (int i = 0; i < count && err == EDS_ERR_OK; i++)
 	{
 		// Get the ith item under the specifed volume
 		if (err == EDS_ERR_OK)
@@ -221,15 +222,15 @@ EdsError getDCIMFolder(EdsVolumeRef volume, EdsDirectoryItemRef * directoryItem)
 		// Get retrieved item information
 		if (err == EDS_ERR_OK)
 		{
-			err = EdsGetDirectoryItemInfo(dirItem, &dirItemInfo)
+			err = EdsGetDirectoryItemInfo(dirItem, &dirItemInfo);
 		}
 		// Indicates whether or not the retrieved item is a DCIM folder.
 		if (err == EDS_ERR_OK)
 		{
-			if (stricmp(dirItemInfo.szFileName, “DCIM“) == 0 &&
+			if (stricmp(dirItemInfo.szFileName, "DCIM") == 0 &&
 				dirItemInfo.isFolder == true)
 			{
-				directoryItem = dirItem;
+				*directoryItem = dirItem;
 				break;
 			}
 		}
@@ -246,9 +247,9 @@ EdsError getDCIMFolder(EdsVolumeRef volume, EdsDirectoryItemRef * directoryItem)
 EdsError takePicture(EdsCameraRef camera)
 {
 	EdsError err;
-	err = EdsSendCommand(_model->getCameraObject(), kEdsCameraCommand_PressShutterButton
+	err = EdsSendCommand(camera, kEdsCameraCommand_PressShutterButton
 		, kEdsCameraCommand_ShutterButton_Completely);
-	EdsSendCommand(_model->getCameraObject(), kEdsCameraCommand_PressShutterButton
+	EdsSendCommand(camera, kEdsCameraCommand_PressShutterButton
 		, kEdsCameraCommand_ShutterButton_OFF);
 	return err;
 }
@@ -258,7 +259,7 @@ EdsError startLiveview(EdsCameraRef camera)
 	EdsError err = EDS_ERR_OK;
 	// Get the output device for the live view image
 	EdsUInt32 device;
-	err = EdsGetPropertyData(camera, kEdsPropID_Evf_OutputDevice, 0, , sizeof(device), &device);
+	err = EdsGetPropertyData(camera, kEdsPropID_Evf_OutputDevice, 0, sizeof(device), &device);
 	// PC live view starts by setting the PC as the output device for the live view image.
 	if (err == EDS_ERR_OK)
 	{
@@ -273,7 +274,7 @@ EdsError downloadEvfData(EdsCameraRef camera)
 	EdsError err = EDS_ERR_OK;
 
 	EdsStreamRef stream = NULL;
-	EdsEvfImageRef = NULL;
+	EdsEvfImageRef evfImage = NULL;
 	// Create memory stream.
 	err = EdsCreateMemoryStream(0, &stream);
 	// Create EvfImageRef.
@@ -291,10 +292,10 @@ EdsError downloadEvfData(EdsCameraRef camera)
 	{
 		// Get the zoom ratio
 		EdsUInt32 zoom;
-		EdsGetPropertyData(erfImage kEdsPropID_Evf_ZoomPosition, 0, sizeof(zoom), &zoom);
+		EdsGetPropertyData(evfImage, kEdsPropID_Evf_ZoomPosition, 0, sizeof(zoom), &zoom);
 		// Get the focus and zoom border position
 		EdsPoint point;
-		EdsGetPropertyData(erfImage kEdsPropID_Evf_ZoomPosition, 0, sizeof(point), &point);
+		EdsGetPropertyData(evfImage, kEdsPropID_Evf_ZoomPosition, 0, sizeof(point), &point);
 	}
 	//
 	// Display image
@@ -303,7 +304,7 @@ EdsError downloadEvfData(EdsCameraRef camera)
 	if (stream != NULL)
 	{
 		EdsRelease(stream);
-		Stream = NULL;
+		stream = NULL;
 	}
 	// Release evfImage
 	if (evfImage != NULL)
@@ -317,7 +318,7 @@ EdsError endLiveview(EdsCameraRef camera)
 	EdsError err = EDS_ERR_OK;
 	// Get the output device for the live view image
 	EdsUInt32 device;
-	err = EdsGetPropertyData(camera, kEdsPropID_Evf_OutputDevice, 0, , sizeof(device), &device);
+	err = EdsGetPropertyData(camera, kEdsPropID_Evf_OutputDevice, 0, sizeof(device), &device);
 	// PC live view ends if the PC is disconnected from the live view image output device.
 	if (err == EDS_ERR_OK)
 	{
