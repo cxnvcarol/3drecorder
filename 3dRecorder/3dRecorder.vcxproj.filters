@@ -17,7 +17,7 @@
     <ClCompile Include="WorkingSession.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EdsServices.cpp">
+    <ClCompile Include="EDSWrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -85,8 +85,14 @@
     <ClInclude Include="..\External\EDSDK\EDSDKTypes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EdsServices.h">
+    <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EDSWrapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="3dRecorder.rc" />
   </ItemGroup>
 </Project>

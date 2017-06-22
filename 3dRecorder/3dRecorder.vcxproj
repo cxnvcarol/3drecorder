@@ -142,7 +142,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="d3dRecorder.cpp" />
-    <ClCompile Include="EdsServices.cpp" />
+    <ClCompile Include="EDSWrapper.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_d3dRecorder.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -208,8 +208,9 @@
     <ClInclude Include="..\External\EDSDK\EDSDK.h" />
     <ClInclude Include="..\External\EDSDK\EDSDKErrors.h" />
     <ClInclude Include="..\External\EDSDK\EDSDKTypes.h" />
-    <ClInclude Include="EdsServices.h" />
+    <ClInclude Include="EDSWrapper.h" />
     <ClInclude Include="GeneratedFiles\ui_d3dRecorder.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="WorkingSession.h" />
   </ItemGroup>
   <ItemGroup>
@@ -231,6 +232,9 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\GeneratedFiles\qrc_%(Filename).cpp</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\GeneratedFiles\qrc_%(Filename).cpp</Command>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="3dRecorder.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

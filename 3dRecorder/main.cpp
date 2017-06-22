@@ -1,8 +1,9 @@
 #include "d3dRecorder.h"
 #include <QtWidgets/QApplication>
 #include "WorkingSession.h"
-#include "EdsServices.h"
-#include "../External/EDSDK/EDSDK.h"
+//#include "EdsServices.h"
+#include "EDSWrapper.h"
+//#include "../External/EDSDK/EDSDK.h"
 void testsEDSDK()
 {
 	EdsError err= EdsInitializeSDK();
@@ -17,7 +18,6 @@ void testsEDSDK()
 
 	EdsUInt32 count=0;
 	EdsError er=EdsGetChildCount(list, &count);
-	qDebug("bailar contigo");
 
 	err = EdsGetChildAtIndex(list, 0, &camera);
 
@@ -35,13 +35,26 @@ int main(int argc, char *argv[])
 	d3dRecorder w;
 
 	WorkingSession ws;
+	EDSWrapper eds;
 
 	ws.dosomething();
+	
+	int cc=eds.getCameraCount();
+	string m = eds.errors[EDS_ERR_OK];
+	
+	//TODO I WAS TRYING TO PRINT OUT AN ERROR FROM THE STATIC MAP!!
+	qDebug(m);
 
+	qDebug("Count: " + cc);
+	eds.sampleRun();
+
+	
+	
+
+	
 
 	//testsEDSDK();
-
-
+	
 
 	w.show();
 	return a.exec();
