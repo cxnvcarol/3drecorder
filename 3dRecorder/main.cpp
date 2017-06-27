@@ -1,9 +1,8 @@
 #include "d3dRecorder.h"
-#include <QtWidgets/QApplication>
+//#include <QtWidgets/QApplication>
 #include "WorkingSession.h"
-//#include "EdsServices.h"
 #include "EDSWrapper.h"
-//#include "../External/EDSDK/EDSDK.h"
+#include "../External/EDSDK/EDSDK.h"
 void testsEDSDK()
 {
 	EdsError err= EdsInitializeSDK();
@@ -13,7 +12,6 @@ void testsEDSDK()
 	if (err == EDS_ERR_OK)
 	{
 		EdsGetCameraList(&list);
-		
 	}
 
 	EdsUInt32 count=0;
@@ -31,31 +29,24 @@ void testsEDSDK()
 
 int main(int argc, char *argv[])
 {
-	QApplication a(argc, argv);
-	d3dRecorder w;
+	//QApplication a(argc, argv);
+	//d3dRecorder w;
 
 	WorkingSession ws;
 	EDSWrapper eds;
 
-	ws.dosomething();
 	
 	int cc=eds.getCameraCount();
-	string m = eds.errors[EDS_ERR_OK];
 	
-	//TODO I WAS TRYING TO PRINT OUT AN ERROR FROM THE STATIC MAP!!
-	qDebug(m);
+	//string m = eds.errors[EDS_ERR_OK];	
+	//qDebug("The error: %s", m.c_str());
 
-	qDebug("Count: " + cc);
+	qDebug("Canons: %d", cc);
 	eds.sampleRun();
 
-	
-	
+	//testsEDSDK();	
 
-	
-
-	//testsEDSDK();
-	
-
-	w.show();
-	return a.exec();
+	//w.show();
+	return 0;
+	//return a.exec();
 }

@@ -10,9 +10,9 @@ public:
 
 	static map<int, string> errors;
 
-	EdsError EDSCALLBACK handleObjectEvent(EdsObjectEvent event, EdsBaseRef object, EdsVoid * context);
-	EdsError EDSCALLBACK handleStateEvent(EdsPropertyEvent event, EdsPropertyID property, EdsUInt32 parameter, EdsVoid * context);
-	EdsError EDSCALLBACK handlePropertyEvent(EdsPropertyEvent event, EdsPropertyID id, EdsUInt32 parameter, EdsVoid * context);
+	static EdsError EDSCALLBACK handleObjectEvent(EdsObjectEvent event, EdsBaseRef object, EdsVoid * context);
+	static EdsError EDSCALLBACK handleStateEvent(EdsPropertyEvent event, EdsPropertyID property, EdsUInt32 parameter, EdsVoid * context);
+	static EdsError EDSCALLBACK handlePropertyEvent(EdsPropertyEvent event, EdsPropertyID id, EdsUInt32 parameter, EdsVoid * context);
 	EdsError getFirstCamera(EdsCameraRef *camera);
 	EdsError getTv(EdsCameraRef camera, EdsUInt32 *Tv);
 	EdsError getTvDesc(EdsCameraRef camera, EdsPropertyDesc *TvDesc);

@@ -186,31 +186,30 @@ void EDSWrapper::sampleRun()
 		updateCameraList();
 		err = getFirstCamera(&currentCamera);		
 	}
-
 	//TODO CONTINUE FROM HERE!!!!
 
-
-	/*
 	// Set event handler
 	if (err == EDS_ERR_OK)
 	{
-		err = EdsSetObjectEventHandler(currentCamera, kEdsObejctEvent_All,handleObjectEvent, NULL);
+		err = EdsSetObjectEventHandler(currentCamera, kEdsObjectEvent_All, handleObjectEvent, this);
 	}
+
+
 	
 
 	// Set event handler
 	if (err == EDS_ERR_OK)
 	{
 		err = EdsSetPropertyEventHandler(currentCamera, kEdsPropertyEvent_All,
-			handlePropertyEvent, NULL);
+			handlePropertyEvent, this);
 	}
 	// Set event handler
 	if (err == EDS_ERR_OK)
 	{
 		err = EdsSetPropertyEventHandler(currentCamera, kEdsStateEvent_All,
-			handleStateEvent, NULL);
+			handleStateEvent, this);
 	}
-	*/
+	
 	// Open session with camera
 	if (err == EDS_ERR_OK)
 	{
@@ -218,9 +217,17 @@ void EDSWrapper::sampleRun()
 	}
 	/////
 	// do something
+	fprintf(stderr, "taking pictre!\n");
+	fflush(stderr);
 	if (err == EDS_ERR_OK)
 	{
-		this->takePicture(currentCamera);
+		EdsError er= this->takePicture(currentCamera);
+		if (er != EDS_ERR_OK)
+		{
+			//printf("error here!!\n");
+			fprintf(stderr,"error here!\n");
+			//printf(errors[er]);
+		}
 	}
 	////
 	// Close session with camera
@@ -241,17 +248,19 @@ void EDSWrapper::sampleRun()
 	}
 }
 
-EdsError EDSCALLBACK EDSWrapper::handleObjectEvent(EdsObjectEvent event,
-	EdsBaseRef object,
-	EdsVoid * context)
+EdsError EDSCALLBACK EDSWrapper::handleObjectEvent(EdsObjectEvent event,EdsBaseRef object,EdsVoid * context)
 {
 	EdsError err = EDS_ERR_OK;
 	// do something
 
+	EDSWrapper* caller = (EDSWrapper*)context;
+
 	switch (event)
 	{
 	case kEdsObjectEvent_DirItemRequestTransfer:
-		downloadImage(object);
+	case kEdsObjectEvent_DirItemCreated:
+		printf("downloading image");
+		caller->downloadImage(object);
 		break;
 	default:
 		break;

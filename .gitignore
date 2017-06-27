@@ -243,3 +243,7 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/External/CanonWrapper/CanonCameraWrapper.cpp
+/External/CanonWrapper/CanonCameraWrapper.h
+
+*.png
