@@ -168,15 +168,10 @@ EDSWrapper::EDSWrapper()
 		isSDKLoaded = true;
 		updateCameraList();
 	}
-
 }
-
-
 EDSWrapper::~EDSWrapper()
 {
 }
-
-
 void EDSWrapper::sampleRun()
 {	
 	// Get first camera
@@ -184,9 +179,8 @@ void EDSWrapper::sampleRun()
 	if (err == EDS_ERR_OK)
 	{
 		updateCameraList();
-		err = getFirstCamera(&currentCamera);		
+		err = getFirstCamera(&currentCamera);
 	}
-	//TODO CONTINUE FROM HERE!!!!
 
 	// Set event handler
 	if (err == EDS_ERR_OK)
