@@ -60,7 +60,7 @@ class QMenu;
 class QScrollArea;
 class QScrollBar;
 
-class ImageViewer : public QMainWindow
+class StandardProjector : public QMainWindow
 {
 
 public:
@@ -68,7 +68,7 @@ public:
 	Q_OBJECT
 
 public:
-	ImageViewer();
+	StandardProjector();
 	bool loadFile(const QString &);
 
 	private slots:

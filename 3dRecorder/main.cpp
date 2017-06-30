@@ -8,7 +8,7 @@
 #include <iostream>
 #include <QDesktopWidget>
 
-#include "ImageViewer.h"
+#include "StandardProjector.h"
 using namespace std;
 /*
 //TODO TRY THIS:
@@ -18,13 +18,12 @@ http://doc.qt.io/qt-5/qtwidgets-widgets-imageviewer-main-cpp.html
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
-	ImageViewer iv;
+	StandardProjector iv;
 	
 	d3dRecorder w;
 	
 
 	iv.showInFullProjection();
-	//iv.fitToWindow();//TODO INACCESSIBLE!
 
 
 

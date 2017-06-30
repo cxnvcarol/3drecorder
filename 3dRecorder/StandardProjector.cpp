@@ -50,9 +50,9 @@
 
 #include <QtWidgets>
 
-#include "imageviewer.h"
+#include "StandardProjector.h"
 
-ImageViewer::ImageViewer()
+StandardProjector::StandardProjector()
 	: imageLabel(new QLabel)
 	, scrollArea(new QScrollArea)
 	, scaleFactor(1)
@@ -66,13 +66,12 @@ ImageViewer::ImageViewer()
 	scrollArea->setVisible(false);
 	setCentralWidget(scrollArea);
 
-	createActions();
 
 	resize(QGuiApplication::primaryScreen()->availableSize() * 3 / 5);
 }
 
 
-bool ImageViewer::loadFile(const QString &fileName)
+bool StandardProjector::loadFile(const QString &fileName)
 {
 	QImageReader reader(fileName);
 	reader.setAutoTransform(true);
@@ -94,22 +93,20 @@ bool ImageViewer::loadFile(const QString &fileName)
 	return true;
 }
 
-void ImageViewer::setImage(const QImage &newImage)
+void StandardProjector::setImage(const QImage &newImage)
 {
 	image = newImage;
 	imageLabel->setPixmap(QPixmap::fromImage(image));
 	scaleFactor = 1.0;
 
 	scrollArea->setVisible(true);
-	fitToWindowAct->setEnabled(true);
-	updateActions();
 
-	if (!fitToWindowAct->isChecked())
+	//if (!fitToWindowAct->isChecked())	//TODO Check here
 		imageLabel->adjustSize();
 }
 
 
-bool ImageViewer::saveFile(const QString &fileName)
+bool StandardProjector::saveFile(const QString &fileName)
 {
 	QImageWriter writer(fileName);
 
@@ -147,7 +144,7 @@ static void initializeImageFileDialog(QFileDialog &dialog, QFileDialog::AcceptMo
 		dialog.setDefaultSuffix("jpg");
 }
 
-void ImageViewer::open()
+void StandardProjector::open()
 {
 	QFileDialog dialog(this, tr("Open File"));
 	initializeImageFileDialog(dialog, QFileDialog::AcceptOpen);
@@ -155,7 +152,7 @@ void ImageViewer::open()
 	while (dialog.exec() == QDialog::Accepted && !loadFile(dialog.selectedFiles().first())) {}
 }
 
-void ImageViewer::saveAs()
+void StandardProjector::saveAs()
 {
 	QFileDialog dialog(this, tr("Save File As"));
 	initializeImageFileDialog(dialog, QFileDialog::AcceptSave);
@@ -163,7 +160,7 @@ void ImageViewer::saveAs()
 	while (dialog.exec() == QDialog::Accepted && !saveFile(dialog.selectedFiles().first())) {}
 }
 
-void ImageViewer::copy()
+void StandardProjector::copy()
 {
 #ifndef QT_NO_CLIPBOARD
 	QGuiApplication::clipboard()->setImage(image);
@@ -184,7 +181,7 @@ static QImage clipboardImage()
 }
 #endif // !QT_NO_CLIPBOARD
 
-void ImageViewer::paste()
+void StandardProjector::paste()
 {
 #ifndef QT_NO_CLIPBOARD
 	const QImage newImage = clipboardImage();
@@ -201,23 +198,23 @@ void ImageViewer::paste()
 #endif // !QT_NO_CLIPBOARD
 }
 
-void ImageViewer::zoomIn()
+void StandardProjector::zoomIn()
 {
 	scaleImage(1.25);
 }
 
-void ImageViewer::zoomOut()
+void StandardProjector::zoomOut()
 {
 	scaleImage(0.8);
 }
 
-void ImageViewer::normalSize()
+void StandardProjector::normalSize()
 {
 	imageLabel->adjustSize();
 	scaleFactor = 1.0;
 }
 
-void ImageViewer::fitToWindow()
+void StandardProjector::fitToWindow()
 {
 	bool fitToWindow = fitToWindowAct->isChecked();
 	scrollArea->setWidgetResizable(fitToWindow);
@@ -226,7 +223,7 @@ void ImageViewer::fitToWindow()
 	updateActions();
 }
 
-void ImageViewer::about()
+void StandardProjector::about()
 {
 	QMessageBox::about(this, tr("About Image Viewer"),
 		tr("<p>The <b>Image Viewer</b> example shows how to combine QLabel "
@@ -243,7 +240,7 @@ void ImageViewer::about()
 			"shows how to use QPainter to print an image.</p>"));
 }
 
-void ImageViewer::showInFullProjection()
+void StandardProjector::showInFullProjection()
 {
 	showFullScreen();
 	int screenCount = QApplication::desktop()->screenCount();
@@ -262,14 +259,14 @@ void ImageViewer::showInFullProjection()
 
 
 
-void ImageViewer::createActions()
+void StandardProjector::createActions()
 {
 	QMenu *fileMenu = menuBar()->addMenu(tr("&File"));
 
-	QAction *openAct = fileMenu->addAction(tr("&Open..."), this, &ImageViewer::open);
+	QAction *openAct = fileMenu->addAction(tr("&Open..."), this, &StandardProjector::open);
 	openAct->setShortcut(QKeySequence::Open);
 
-	saveAsAct = fileMenu->addAction(tr("&Save As..."), this, &ImageViewer::saveAs);
+	saveAsAct = fileMenu->addAction(tr("&Save As..."), this, &StandardProjector::saveAs);
 	saveAsAct->setEnabled(false);
 
 
@@ -280,41 +277,41 @@ void ImageViewer::createActions()
 
 	QMenu *editMenu = menuBar()->addMenu(tr("&Edit"));
 
-	copyAct = editMenu->addAction(tr("&Copy"), this, &ImageViewer::copy);
+	copyAct = editMenu->addAction(tr("&Copy"), this, &StandardProjector::copy);
 	copyAct->setShortcut(QKeySequence::Copy);
 	copyAct->setEnabled(false);
 
-	QAction *pasteAct = editMenu->addAction(tr("&Paste"), this, &ImageViewer::paste);
+	QAction *pasteAct = editMenu->addAction(tr("&Paste"), this, &StandardProjector::paste);
 	pasteAct->setShortcut(QKeySequence::Paste);
 
 	QMenu *viewMenu = menuBar()->addMenu(tr("&View"));
 
-	zoomInAct = viewMenu->addAction(tr("Zoom &In (25%)"), this, &ImageViewer::zoomIn);
+	zoomInAct = viewMenu->addAction(tr("Zoom &In (25%)"), this, &StandardProjector::zoomIn);
 	zoomInAct->setShortcut(QKeySequence::ZoomIn);
 	zoomInAct->setEnabled(false);
 
-	zoomOutAct = viewMenu->addAction(tr("Zoom &Out (25%)"), this, &ImageViewer::zoomOut);
+	zoomOutAct = viewMenu->addAction(tr("Zoom &Out (25%)"), this, &StandardProjector::zoomOut);
 	zoomOutAct->setShortcut(QKeySequence::ZoomOut);
 	zoomOutAct->setEnabled(false);
 
-	normalSizeAct = viewMenu->addAction(tr("&Normal Size"), this, &ImageViewer::normalSize);
+	normalSizeAct = viewMenu->addAction(tr("&Normal Size"), this, &StandardProjector::normalSize);
 	normalSizeAct->setShortcut(tr("Ctrl+S"));
 	normalSizeAct->setEnabled(false);
 
 	viewMenu->addSeparator();
 
-	fitToWindowAct = viewMenu->addAction(tr("&Fit to Window"), this, &ImageViewer::fitToWindow);
+	fitToWindowAct = viewMenu->addAction(tr("&Fit to Window"), this, &StandardProjector::fitToWindow);
 	fitToWindowAct->setEnabled(false);
 	fitToWindowAct->setCheckable(true);
 	fitToWindowAct->setShortcut(tr("Ctrl+F"));
 
 	QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
 
-	helpMenu->addAction(tr("&About"), this, &ImageViewer::about);
+	helpMenu->addAction(tr("&About"), this, &StandardProjector::about);
 	helpMenu->addAction(tr("About &Qt"), &QApplication::aboutQt);
 }
 
-void ImageViewer::updateActions()
+void StandardProjector::updateActions()
 {
 	saveAsAct->setEnabled(!image.isNull());
 	copyAct->setEnabled(!image.isNull());
@@ -323,7 +320,7 @@ void ImageViewer::updateActions()
 	normalSizeAct->setEnabled(!fitToWindowAct->isChecked());
 }
 
-void ImageViewer::scaleImage(double factor)
+void StandardProjector::scaleImage(double factor)
 {
 	Q_ASSERT(imageLabel->pixmap());
 	scaleFactor *= factor;
@@ -336,7 +333,7 @@ void ImageViewer::scaleImage(double factor)
 	zoomOutAct->setEnabled(scaleFactor > 0.333);
 }
 
-void ImageViewer::adjustScrollBar(QScrollBar *scrollBar, double factor)
+void StandardProjector::adjustScrollBar(QScrollBar *scrollBar, double factor)
 {
 	scrollBar->setValue(int(factor * scrollBar->value()
 		+ ((factor - 1) * scrollBar->pageStep() / 2)));
