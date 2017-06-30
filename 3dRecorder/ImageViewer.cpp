@@ -243,6 +243,25 @@ void ImageViewer::about()
 			"shows how to use QPainter to print an image.</p>"));
 }
 
+void ImageViewer::showInFullProjection()
+{
+	showFullScreen();
+	int screenCount = QApplication::desktop()->screenCount();
+	QRect rec = QApplication::desktop()->screenGeometry(0);
+	QRect rec2 = QApplication::desktop()->screenGeometry(1);
+	int x = rec.center().rx();
+	int x2 = rec2.center().rx();
+	setGeometry(rec);
+
+	//
+	this->loadFile("C:\\Users\\naranjo\\Pictures\\IMG_0001.JPG");
+	//this->loadFile("C:\\Users\\naranjo\\Pictures\\toy.png");
+	fitToWindowAct->setChecked(true);
+	this->fitToWindow();
+}
+
+
+
 void ImageViewer::createActions()
 {
 	QMenu *fileMenu = menuBar()->addMenu(tr("&File"));

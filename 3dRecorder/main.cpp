@@ -1,39 +1,39 @@
+
 #include "d3dRecorder.h"
 #include <QtWidgets/QApplication>
 #include "WorkingSession.h"
 #include "EDSWrapper.h"
 #include "../External/EDSDK/EDSDK.h"
 
+#include <iostream>
+#include <QDesktopWidget>
+
+#include "ImageViewer.h"
+using namespace std;
 /*
 //TODO TRY THIS:
 
 http://doc.qt.io/qt-5/qtwidgets-widgets-imageviewer-main-cpp.html
 */
-void testsEDSDK()
-{
-	EdsError err= EdsInitializeSDK();
-	EdsCameraRef camera = NULL;
-	EdsCameraListRef list=NULL;
-
-	if (err == EDS_ERR_OK)
-	{
-		EdsGetCameraList(&list);
-	}
-
-	EdsUInt32 count=0;
-	EdsError er=EdsGetChildCount(list, &count);
-
-	err = EdsGetChildAtIndex(list, 0, &camera);
-
-	EdsGetChildCount(camera, &count);
-
-	EdsDeviceInfo infoDev;
-	EdsGetDeviceInfo(camera, &infoDev);
-
-	EdsTerminateSDK();
-}
-
 int main(int argc, char *argv[])
+{
+	QApplication a(argc, argv);
+	ImageViewer iv;
+	
+	d3dRecorder w;
+	
+
+	iv.showInFullProjection();
+	//iv.fitToWindow();//TODO INACCESSIBLE!
+
+
+
+
+
+	w.show();
+	return a.exec();
+}
+int main2(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
 	d3dRecorder w;

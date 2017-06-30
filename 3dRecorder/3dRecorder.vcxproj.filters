@@ -2,7 +2,13 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="d3dRecorder.cpp">
+    <ClCompile Include="WorkingSession.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EDSWrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenProjector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\qrc_d3dRecorder.cpp">
@@ -14,16 +20,7 @@
     <ClCompile Include="GeneratedFiles\Release\moc_d3dRecorder.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="WorkingSession.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EDSWrapper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ScreenProjector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ImageViewer.cpp">
+    <ClCompile Include="d3dRecorder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_ImageViewer.cpp">
@@ -31,6 +28,9 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_ImageViewer.cpp">
       <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageViewer.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -71,8 +71,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="d3dRecorder.h">
-      <Filter>Header Files</Filter>
+    <CustomBuild Include="projectorWindow.ui">
+      <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="d3dRecorder.ui">
       <Filter>Form Files</Filter>
@@ -80,17 +80,14 @@
     <CustomBuild Include="d3dRecorder.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="projectorWindow.ui">
-      <Filter>Form Files</Filter>
+    <CustomBuild Include="d3dRecorder.h">
+      <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="ImageViewer.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GeneratedFiles\ui_d3dRecorder.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
     <ClInclude Include="WorkingSession.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -115,8 +112,8 @@
     <ClInclude Include="GeneratedFiles\ui_projectorWindow.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="3dRecorder.rc" />
+    <ClInclude Include="GeneratedFiles\ui_d3dRecorder.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

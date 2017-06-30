@@ -62,6 +62,9 @@ class QScrollBar;
 
 class ImageViewer : public QMainWindow
 {
+
+public:
+	void showInFullProjection();
 	Q_OBJECT
 
 public:
@@ -78,6 +81,8 @@ public:
 	void normalSize();
 	void fitToWindow();
 	void about();
+
+	
 
 private:
 	void createActions();
