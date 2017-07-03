@@ -69,7 +69,6 @@ StandardProjector::StandardProjector()
 	resize(QGuiApplication::primaryScreen()->availableSize() * 3 / 5);
 }
 
-
 bool StandardProjector::loadFile(const QString &fileName)
 {
 	QImageReader reader(fileName);
@@ -85,10 +84,8 @@ bool StandardProjector::loadFile(const QString &fileName)
 	setImage(newImage);
 
 	setWindowFilePath(fileName);
-
-	const QString message = tr("Opened \"%1\", %2x%3, Depth: %4")
-		.arg(QDir::toNativeSeparators(fileName)).arg(image.width()).arg(image.height()).arg(image.depth());
-	statusBar()->showMessage(message);
+	//const QString message = tr("Opened \"%1\", %2x%3, Depth: %4").arg(QDir::toNativeSeparators(fileName)).arg(image.width()).arg(image.height()).arg(image.depth());
+	//statusBar()->showMessage(message);
 	return true;
 }
 
@@ -99,41 +96,14 @@ void StandardProjector::setImage(const QImage &newImage)
 	scaleFactor = 1.0;
 
 	scrollArea->setVisible(true);
-
-	//if (!fitToWindowAct->isChecked())//TODO Check!
-		imageLabel->adjustSize();
+	imageLabel->adjustSize();
 }
 
-
-static void initializeImageFileDialog(QFileDialog &dialog, QFileDialog::AcceptMode acceptMode)
-{
-	static bool firstDialog = true;
-
-	if (firstDialog) {
-		firstDialog = false;
-		const QStringList picturesLocations = QStandardPaths::standardLocations(QStandardPaths::PicturesLocation);
-		dialog.setDirectory(picturesLocations.isEmpty() ? QDir::currentPath() : picturesLocations.last());
-	}
-
-	QStringList mimeTypeFilters;
-	const QByteArrayList supportedMimeTypes = acceptMode == QFileDialog::AcceptOpen
-		? QImageReader::supportedMimeTypes() : QImageWriter::supportedMimeTypes();
-	foreach(const QByteArray &mimeTypeName, supportedMimeTypes)
-		mimeTypeFilters.append(mimeTypeName);
-	mimeTypeFilters.sort();
-	dialog.setMimeTypeFilters(mimeTypeFilters);
-	dialog.selectMimeTypeFilter("image/jpeg");
-	if (acceptMode == QFileDialog::AcceptSave)
-		dialog.setDefaultSuffix("jpg");
-}
 
 
 void StandardProjector::fitToWindow()
 {
-	//bool fitToWindow = fitToWindowAct->isChecked();
 	scrollArea->setWidgetResizable(true);
-	//if (!fitToWindow)
-	//	normalSize();
 }
 
 void StandardProjector::showInFullProjection()
@@ -146,64 +116,6 @@ void StandardProjector::showInFullProjection()
 	int x2 = rec2.center().rx();
 	setGeometry(rec);
 
-	//
-	this->loadFile("C:\\Users\\naranjo\\Pictures\\IMG_0001.JPG");
-	//this->loadFile("C:\\Users\\naranjo\\Pictures\\toy.png");
-	//fitToWindowAct->setChecked(true);
+	this->loadFile("C:\\Users\\naranjo\\Pictures\\IMG_0001.JPG");//TODO Parametrize
 	this->fitToWindow();
-}
-
-
-/*
-void StandardProjector::createActions()
-{
-	QMenu *fileMenu = menuBar()->addMenu(tr("&File"));
-
-
-	fileMenu->addSeparator();
-
-	QAction *exitAct = fileMenu->addAction(tr("E&xit"), this, &QWidget::close);
-	exitAct->setShortcut(tr("Ctrl+Q"));
-
-	QMenu *editMenu = menuBar()->addMenu(tr("&Edit"));
-
-	QMenu *viewMenu = menuBar()->addMenu(tr("&View"));
-
-
-	viewMenu->addSeparator();
-
-	fitToWindowAct = viewMenu->addAction(tr("&Fit to Window"), this, &StandardProjector::fitToWindow);
-	fitToWindowAct->setEnabled(false);
-	fitToWindowAct->setCheckable(true);
-	fitToWindowAct->setShortcut(tr("Ctrl+F"));
-
-}
-
-void StandardProjector::updateActions()
-{
-	saveAsAct->setEnabled(!image.isNull());
-	copyAct->setEnabled(!image.isNull());
-	zoomInAct->setEnabled(!fitToWindowAct->isChecked());
-	zoomOutAct->setEnabled(!fitToWindowAct->isChecked());
-	normalSizeAct->setEnabled(!fitToWindowAct->isChecked());
-}
-*/
-
-void StandardProjector::scaleImage(double factor)
-{
-	Q_ASSERT(imageLabel->pixmap());
-	scaleFactor *= factor;
-	imageLabel->resize(scaleFactor * imageLabel->pixmap()->size());
-
-	adjustScrollBar(scrollArea->horizontalScrollBar(), factor);
-	adjustScrollBar(scrollArea->verticalScrollBar(), factor);
-
-	//zoomInAct->setEnabled(scaleFactor < 3.0);
-	//zoomOutAct->setEnabled(scaleFactor > 0.333);
-}
-
-void StandardProjector::adjustScrollBar(QScrollBar *scrollBar, double factor)
-{
-	scrollBar->setValue(int(factor * scrollBar->value()
-		+ ((factor - 1) * scrollBar->pageStep() / 2)));
 }

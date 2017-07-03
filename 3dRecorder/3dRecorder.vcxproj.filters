@@ -8,9 +8,6 @@
     <ClCompile Include="EDSWrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ScreenProjector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\qrc_d3dRecorder.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
@@ -105,12 +102,6 @@
     </ClInclude>
     <ClInclude Include="EDSWrapper.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ScreenProjector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_projectorWindow.h">
-      <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_d3dRecorder.h">
       <Filter>Generated Files</Filter>

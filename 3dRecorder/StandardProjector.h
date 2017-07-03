@@ -58,7 +58,6 @@ class QAction;
 class QLabel;
 class QMenu;
 class QScrollArea;
-class QScrollBar;
 
 class StandardProjector : public QMainWindow
 {
@@ -78,8 +77,6 @@ public:
 
 private:
 	void setImage(const QImage &newImage);
-	void scaleImage(double factor);
-	void adjustScrollBar(QScrollBar *scrollBar, double factor);
 
 	QImage image;
 	QLabel *imageLabel;

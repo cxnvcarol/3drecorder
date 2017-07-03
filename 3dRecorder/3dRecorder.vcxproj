@@ -171,7 +171,6 @@
     </ClCompile>
     <ClCompile Include="StandardProjector.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ScreenProjector.cpp" />
     <ClCompile Include="WorkingSession.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -198,7 +197,6 @@
     </CustomBuild>
     <ClInclude Include="EDSWrapper.h" />
     <ClInclude Include="GeneratedFiles\ui_d3dRecorder.h" />
-    <ClInclude Include="GeneratedFiles\ui_projectorWindow.h" />
     <CustomBuild Include="StandardProjector.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing StandardProjector.h...</Message>
@@ -218,7 +216,6 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB "-I$(VIMBA_HOME)\." "-I$(VIMBA_HOME)\ThirdParty\TinyXML\Include" "-I.\GeneratedFiles" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I." "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets"</Command>
     </CustomBuild>
     <ClInclude Include="resource.h" />
-    <ClInclude Include="ScreenProjector.h" />
     <ClInclude Include="WorkingSession.h" />
   </ItemGroup>
   <ItemGroup>
