@@ -1,4 +1,6 @@
-
+/**
+EDS Canon DLSR cameras
+**/
 #include "../External/EDSDK/EDSDK.h"
 #include <map>
 using namespace std;
