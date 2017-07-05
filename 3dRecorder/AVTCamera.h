@@ -13,6 +13,6 @@ public:
 	static bool detectCameras(AVTCamera* avtList);
 
 private:
-	VimbaSystem& sys;
+//	VimbaSystem& sys;
 };
 

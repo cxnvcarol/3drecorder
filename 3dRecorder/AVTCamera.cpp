@@ -4,8 +4,8 @@ using namespace AVT::VmbAPI;
 
 AVTCamera::AVTCamera()
 {
-	*sys = VimbaSystem::GetInstance();  // Get a reference to the VimbaSystem singleton
-	VmbErrorType    err = *sys.Startup();               // Initialize the Vimba API
+//	*sys = VimbaSystem::GetInstance();  // Get a reference to the VimbaSystem singleton
+	//VmbErrorType    err = *sys.Startup();               // Initialize the Vimba API
 }
 
 

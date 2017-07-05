@@ -11,7 +11,7 @@ public:
 	ActiveCamera();
 	virtual ~ActiveCamera();
 
-	template <typename CameraSettings>;
+//	template <typename CameraSettings>;
 
 	virtual int takePicture();
 	virtual void loadSettings(CameraSettings cs);

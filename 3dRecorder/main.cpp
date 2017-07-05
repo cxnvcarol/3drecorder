@@ -1,5 +1,4 @@
 
-#include "d3dRecorder.h"
 #include <QtWidgets/QApplication>
 #include "WorkingSession.h"
 #include "EDSWrapper.h"
@@ -17,9 +16,7 @@ int testShowFullScreen(int argc, char *argv[])
 	QApplication a(argc, argv);
 	StandardProjector iv;
 	
-	d3dRecorder w;
 	iv.showInFullProjection();
-	w.show();
 	return a.exec();
 }
 void testIdentifyCameras()
